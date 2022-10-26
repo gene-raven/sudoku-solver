@@ -98,10 +98,14 @@ class Sudoku():
         :type grid: list[list[int]]
         :raise InvalidSudoku: when dimensions of passed grid not correspond with current object properties
         '''
+        n = len(grid)
         # Check if file content match the required number of rows and columns
-        if len(grid) != self.nrows or any(len(row) != self.ncolumns for row in grid):
+        if n != self.nrows or any(len(row) != self.ncolumns for row in grid):
             raise InvalidSudoku('Invalid sudoku grid')
-        
+
+        if not all(0 <= grid[i][j] <= n for i in range(9) for j in range(9)):
+            raise InvalidSudoku('Invalid sudoku grid')
+
         self._grid = grid
 
 
