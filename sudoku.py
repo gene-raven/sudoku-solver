@@ -340,7 +340,7 @@ class SudokuSolver():
             # Check if updated assignment is consistent
             if self.consistent(assignment):
                 
-                domains = self.domains
+                domains = self.copy_domains()
                 self.domains[var] = {val}
                 if result := self.solve():
                     return result
@@ -458,6 +458,9 @@ class SudokuSolver():
                 vars.remove(n)
 
         return flag
+
+    def copy_domains(self):
+        return {var: set(self.domains[var]) for var in self.domains}
 
 
 class InvalidSudoku(Exception):
